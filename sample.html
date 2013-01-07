@@ -1,0 +1,97 @@
+<html>
+<head>
+<script type="text/javascript" charset="iso-8859-1">
+
+function validate_form(form) 
+{
+var string1 = form.user_name1.value;
+var string2 = form.user_name2.value;
+document.write(string1);document.write("<br>");
+document.write(string2);
+var coi=parseInt(form.user_name3.value);
+var cod=parseInt(form.user_name4.value);
+var cosu=parseInt(form.user_name5.value);
+var len1=string1.length;
+var len2=string2.length;
+var matrix=new Array(len1);
+for(var i=0;i<len1;i++)
+{
+	matrix[i]=new Array(len2);
+	}
+for(var i=0;i<len1;i++)
+{
+	for(var j=0;j<len2;j++)
+	{
+		matrix[i][j]=0;
+	}
+}
+document.write("<p>Initial value of matrix:</p>:"+"<br>");
+for(var i=0;i<len1;i++)
+{
+	document.write("<br>");
+	for(var j=0;j<len2;j++)
+	{
+		document.write(matrix[i][j]+"&nbsp;");
+	}
+}
+for(var i=0;i<len1;i++)
+{
+	matrix[i][0]=i*(Math.min(coi,cod));
+}
+for(var j=0;j<len2;j++)
+{
+	matrix[0][j]=j*(Math.min(coi,cod));
+}
+for(var i=0;i<len1;i++)
+{
+	document.write("<br>");
+	for(var j=0;j<len2;j++)
+	{
+		document.write(matrix[i][j]+"&nbsp;");
+	}
+}
+var cost=0;
+for(var i=1;i<len1;i++)
+{
+	for(var j=1;j<len2;j++)
+	{
+		if(string1[i]==string2[j])
+		cost=0;
+		else
+		cost=cosu;
+		matrix[i][j]=Math.min(matrix[i][j-1]+coi,Math.min(matrix[i-1][j]+cod,matrix[i-1][j-1]+cost));
+	}
+}
+for(var i=0;i<len1;i++)
+{
+	document.write("<br>");
+	for(var j=0;j<len2;j++)
+	{
+		document.write(matrix[i][j]+"&nbsp;");
+	}
+}
+			
+
+}
+
+</script>
+</head>
+<body>
+Enter your name and then hit submit
+<form onsubmit="return validate_form(this);">
+<div  style="border:6px groove orange;width:360px;background:black;color:white;">
+<h5>Enter your String inside the given form for alignment:</h5>
+String&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<input name="user_name1" style="background:black;color:white"type="text" value=""><br>
+String&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<input name="user_name2" type="text" value="" style="background:black;color:white;"><br>
+</div>
+<br>
+<br>
+<br>
+<br>
+Cost of Insertion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<input style="background:black;color:white;"name="user_name3" type="text" value=""><br>
+Cost of Deletion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<input style="background:black;color:white;"name="user_name4" type="text" value=""><br>
+Cost of Substitution&nbsp;&nbsp;:<input style="background:black;color:white;" name="user_name5" type="text" value=""><br>
+<input style="background:black;color:white;" type="submit" value="Align the String">
+</form>
+</body>
+</html>
