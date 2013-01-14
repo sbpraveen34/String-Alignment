@@ -1,0 +1,212 @@
+<html>
+<head>
+<title>String Allignment</title>
+<style type="text/css">
+#heading{ text-align: center; 
+font: bold 2em Apple Chancery;
+}
+#heading1{ text-align: center; 
+font: bold 2em TImes;
+}
+#heading2{ text-align: center; 
+font:3em cursive;}
+body {
+background-image: url(green-butterfly.jpg); }
+#rem{
+	width: 500px;
+	height: 25%;
+	padding: 1em 1em 1em 1em;
+	position: absolute;
+	top: 387px;
+	left: 24px;
+}
+#tbl{
+	background-image: url(vector-design.jpg);
+	background-width: 50%;
+background-height=25%; 	width: 500px;
+	height: 25%;
+	padding: 1em 1em 1em 1em;
+	position: absolute;
+	top: 17px;
+	left: 14px;
+}
+p#conc1{
+	width: 342px;
+	height: 1em;
+	padding: 1em 0em 1em 1em;
+	position: absolute;
+	top: 250px;
+	left: 65px;
+	text-align: center;
+}
+p#conc2{
+	width: 299px;
+	height: 1em;
+	padding: 0.5em 0em 1em 1em;
+	position: absolute;
+	top: 577px;
+	left: 113px;
+	text-align: center;
+}
+</style>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+ var m = new Array();
+ var len1=0;
+ var len2=0;
+ var insertion;
+ var deletion;
+ var replacement;
+function view_table()
+{	
+    my_window = window.open("", "mywindow1", "status=1,left=500,top=100,width=500,height=500");
+    my_window.document.write('<html>');
+my_window.document.write('<head>');
+my_window.document.write('<title>REMINDER</title>');
+my_window.document.write('</head>');
+my_window.document.write('</body>');
+my_window.document.write('<p><table>');
+for(var i=0;i<len1+1;i++){
+my_window.document.write('<tr>');
+for(var j=0;j<len2+1;j++){
+my_window.document.write('<td>'+m[i][j]+'</td>');
+}
+my_window.document.write('</tr>');
+}
+my_window.document.write('</table></p>');
+my_window.document.write('</body>');
+my_window.document.write('</html>')
+}
+function EDITDIS(s1, s2)
+ {	len1=s1.length;
+ 	len2=s2.length;
+   var i, j;
+   for(i=0; i < s1.length + 1; i++) m[i] = new Array(); 
+
+   m[0][0] = 0; 
+
+   for(j=1; j <= s2.length; j++)
+      m[0][j] = m[0][j-1]-0 + Math.min(insertion,deletion);
+
+   for(i=1; i <= s1.length; i++)                           
+    { m[i][0] = m[i-1][0]-0 + Math.min(insertion,deletion); 
+
+      for(j=1; j <= s2.length; j++)                         
+       { var res = m[i-1][j-1];
+         if( s1.charAt(i-1) != s2.charAt(j-1) ) res+=replacement;
+
+         m[i][j] = Math.min( res,               // change
+                   Math.min( m[i-1][j]-0 + Math.min(insertion,deletion),    // deletion
+                             m[i][j-1]-0 + Math.min(insertion,deletion) ) ) // insertion
+       }
+    }
+
+   backTrack('', '', '', m, s1.length, s2.length, s1, s2);
+   return m[s1.length][s2.length];
+ }
+ for(var i=0;i<=s1.length;i++)
+	{
+		document.write("<BR>");
+		for (var j=0;j<=s2.length;j++)
+			{
+				document.write(m[i][j]+"  ");
+				}
+		}
+
+function backTrack(row1, row2, row3, m, i, j, s1, s2)
+
+ { if(i > 0 && j > 0)
+    { var res = m[i-1][j-1],  resCh = '|';
+      if( s1.charAt(i-1) != s2.charAt(j-1) ) { res+=replacement; resCh = ' '; }
+
+      if( m[i][j] == res )
+         backTrack(s1.charAt(i-1)+row1, resCh+row2, s2.charAt(j-1)+row3,
+                   m, i-1, j-1, s1, s2);    // change
+      else if( m[i][j] == m[i-1][j]-0 + Math.min(insertion,deletion) ) // delete
+         backTrack(s1.charAt(i-1)+row1, ' '+row2, '-'+row3,
+                   m, i-1, j, s1, s2);
+      else
+         backTrack('-'+row1, ' '+row2, s2.charAt(j-1)+row3,
+                   m, i, j-1, s1, s2);      // insertion
+    }
+   else if(i > 0)
+      backTrack(s1.charAt(i-1)+row1, ' '+row2, '-'+row3, m, i-1, j, s1, s2);
+   else if(j > 0)
+      backTrack('-'+row1, ' '+row2, s2.charAt(j-1)+row3, m, i, j-1, s1, s2);
+   else 
+     {
+ 
+document.forms[1].elements[0].value=document.forms[1].elements[0].value.concat(row1);
+document.forms[1].elements[1].value=document.forms[1].elements[1].value.concat(row3);
+}
+
+ }//backTrack
+
+
+function EDITDISdr()
+ {var s1 = document.getElementById("inp1").value;
+  var s2 = document.getElementById("inp2").value;
+  insertion= parseInt(document.getElementById("inp3").value);
+ deletion=parseInt(document.getElementById("inp4").value);
+ replacement=parseInt(document.getElementById("inp5").value);
+   if(s1.length > 30)
+    { document.forms[1].elements[0].value = 's1 too long'; return; }
+   if(s2.length > 30)
+    { document.forms[1].elements[1].value = 's2 too long'; return; }
+
+  
+   var ds1s2 = EDITDIS(s1, s2);
+   document.forms[1].elements[2].value= ds1s2;
+ }
+
+// -->
+</SCRIPT>
+</head>
+<body>
+<form>
+
+
+
+Text1:<input type="text" id="inp1" value="">
+
+
+<br>
+Text2:<input type="text" id="inp2" value="">
+<br>
+   
+Insertion Cost :
+<input type="text" id="inp3" value="">
+<br>
+Deletion Cost  :
+<input type="text" id="inp4" value="">
+<br>
+Replacement Cost  :
+<input type="text" id="inp5" value="">
+<br>
+
+
+
+<button onClick="EDITDISdr(); return false;">Align String</button>
+
+
+</form>
+<form>
+
+
+
+Proper Text 1:
+<input type="text" name="month" value="">
+<br>
+
+Proper Text 2
+<input type="text" name="year" value="">
+     <br>
+Total Cost<input type="text" name="month" value="">
+<br>
+<button onClick="view_table(); return false;">Cost Matrix Please!!</button>
+
+</form>
+</body>
+</html>
